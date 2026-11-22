@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Todo App — Simple To-Do List | Free, No Sign-Up</title>
+  <meta name="description" content="A free, simple todo app. Add tasks, check them off, filter all / active / done, clear completed — everything saved in your browser, no sign-up." />
+  <meta name="keywords" content="todo app, to-do list, task list, free todo, simple todo app" />
+  <meta name="author" content="Todo App" />
+  <meta name="theme-color" content="#14100c" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Todo App — Simple To-Do List" />
+  <meta property="og:description" content="Add tasks, check them off, filter all / active / done. Saved in your browser, no sign-up." />
+  <meta property="og:site_name" content="Todo App" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Todo App — Simple To-Do List" />
+  <meta name="twitter:description" content="Add tasks, check them off, filter all / active / done. Saved in your browser, no sign-up." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ============ Header ============ -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="#top" aria-label="Todo App — home">
+        <span class="logo-mark" aria-hidden="true">✅</span>
+        Todo <em>App</em>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#list">My list</a>
+        <a href="#how">How it works</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <a class="nav-cta" href="#list">Open my list</a>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">☰</button>
+    </div>
+    <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
+      <a href="#list">My list</a>
+      <a href="#how">How it works</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ Hero ============ -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Small list, big day</span>
+          <h1>Get it done.<br /><span class="grad">Check it off.</span></h1>
+          <p class="hero-sub">A todo list that stays out of your way. Type a task, hit <strong>Enter</strong>, tick it off when it’s done — and it’s still there tomorrow.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#list">✅ Open my list</a>
+            <a class="btn btn-ghost" href="#how">How it works</a>
+          </div>
+          <p class="hero-note">Free forever · No sign-up · Saved in your browser</p>
+        </div>
+
+        <div class="hero-card" aria-hidden="true">
+          <p class="hero-card-label">Today, at a glance</p>
+          <ul class="hero-todos">
+            <li class="done"><span class="hero-check">✓</span><span>Morning coffee</span></li>
+            <li class="done"><span class="hero-check">✓</span><span>Reply to Sam</span></li>
+            <li><span class="hero-check"></span><span>Finish the report</span></li>
+            <li><span class="hero-check"></span><span>Evening walk</span></li>
+          </ul>
+          <p class="hero-card-note">2 of 4 done — keep going</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ List ============ -->
+    <section class="section" id="list">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Your list</span>
+          <h2>What’s on today?</h2>
+          <p>Add a task and press Enter. Click the circle to complete it, the ✕ to delete it.</p>
+        </div>
+
+        <div class="tool-card reveal">
+          <form class="add-row" id="add-form">
+            <label class="visually-hidden" for="new-todo">New task</label>
+            <input class="text-input" id="new-todo" type="text" placeholder="Add a task… e.g. Buy milk" maxlength="200" autocomplete="off" />
+            <button class="btn btn-primary" id="add-btn" type="submit">＋ Add</button>
+          </form>
+
+          <div class="filter-row" role="group" aria-label="Filter tasks">
+            <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">All <span class="filter-count" id="count-all">0</span></button>
+            <button class="filter-btn" type="button" data-filter="active" aria-pressed="false">Active <span class="filter-count" id="count-active">0</span></button>
+            <button class="filter-btn" type="button" data-filter="done" aria-pressed="false">Done <span class="filter-count" id="count-done">0</span></button>
+          </div>
+
+          <p class="remaining" id="remaining" aria-live="polite">No tasks yet.</p>
+
+          <ul class="todo-list" id="todo-list"></ul>
+          <div class="empty-state" id="empty-state">
+            <span class="empty-icon" aria-hidden="true">📝</span>
+            <p class="empty-title">Nothing here yet</p>
+            <p class="empty-sub">Add your first task above and press Enter.</p>
+          </div>
+
+          <div class="list-actions">
+            <button class="btn btn-ghost btn-sm" id="clear-completed-btn" type="button">🧹 Clear completed</button>
+            <button class="btn btn-ghost btn-sm" id="clear-all-btn" type="button">✕ Clear all tasks</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ How it works ============ -->
+    <section class="section" id="how">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Dead simple</span>
+          <h2>How it works.</h2>
+          <p>Three steps to an empty list.</p>
+        </div>
+        <div class="steps-grid reveal">
+          <div class="step-card">
+            <span class="step-num">1</span>
+            <h3>Add a task</h3>
+            <p>Type it in and press Enter. That’s the whole capture system.</p>
+          </div>
+          <div class="step-card">
+            <span class="step-num">2</span>
+            <h3>Tick it off</h3>
+            <p>Done something? Click its circle. The satisfying strike-through does the rest.</p>
+          </div>
+          <div class="step-card">
+            <span class="step-num">3</span>
+            <h3>Filter &amp; clear</h3>
+            <p>See only what’s left with Active, review Done, and sweep finished tasks away with Clear completed.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Good to know</span>
+          <h2>FAQ.</h2>
+        </div>
+        <div class="faq-list reveal">
+          <div class="faq-item">
+            <h3>Where are my tasks saved?</h3>
+            <p>In your own browser (local storage). They survive closing the tab and coming back — but they live on this device only.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Do I need an account?</h3>
+            <p>No. No sign-up, no sync, no email — just open the page and start listing.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Can I edit a task?</h3>
+            <p>Yes — double-click a task (or press Enter on it) to edit it in place. Press Enter to save, Escape to cancel.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Is there a limit?</h3>
+            <p>No hard limit — add as many tasks as you like.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ Footer ============ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <a class="logo" href="#top" aria-label="Todo App — back to top">
+            <span class="logo-mark" aria-hidden="true">✅</span>
+            Todo <em>App</em>
+          </a>
+          <p>Small list, big day. A tiny, free todo app — no account, no cloud, just your tasks.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="#list">My list</a>
+          <a href="#how">How it works</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year">2026</span> Todo App. One task at a time. ✅</span>
+        <span>Free forever. No sign-up.</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
